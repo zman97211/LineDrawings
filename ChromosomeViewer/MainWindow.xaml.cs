@@ -43,9 +43,7 @@ namespace ChromosomeViewer
         public MainWindow()
         {
             InitializeComponent();
-            var c = LineGene.GetRandomChromosome(100);
-            var p = LineGene.GetPhenotype(c);
-            var b = GenBitmap(p);
+            var b = GenBitmap(new DrawingChromosome(100).GetPhenotype());
 
             using (MemoryStream memory = new MemoryStream())
             {

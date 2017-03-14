@@ -46,7 +46,7 @@
   <ItemGroup>
     <Compile Include="Algorithms.cs" />
     <Compile Include="DrawingChromosome.cs" />
-    <Compile Include="LineGene.cs" />
+    <Compile Include="LineDrawingTarget.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
