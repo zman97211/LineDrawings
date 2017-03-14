@@ -4,7 +4,7 @@ using GeneticSharp.Domain.Fitnesses;
 
 namespace Model
 {
-    class LineDrawingTarget : IFitness
+    public class LineDrawingTarget : IFitness
     {
         private readonly byte[,] _targetPhenotype = new byte[256,256];
 

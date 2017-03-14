@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromosomeViewer", "ChromosomeViewer\ChromosomeViewer.csproj", "{EFEEBF41-092D-4054-AEDC-E7333004CC5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestRun", "TestRun\TestRun.csproj", "{48715736-9352-4F91-B097-E4354BAEE14C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EFEEBF41-092D-4054-AEDC-E7333004CC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EFEEBF41-092D-4054-AEDC-E7333004CC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EFEEBF41-092D-4054-AEDC-E7333004CC5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48715736-9352-4F91-B097-E4354BAEE14C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48715736-9352-4F91-B097-E4354BAEE14C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48715736-9352-4F91-B097-E4354BAEE14C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48715736-9352-4F91-B097-E4354BAEE14C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

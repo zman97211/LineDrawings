@@ -107,6 +107,12 @@ namespace Model
             }
             return phenotype;
         }
+
+        private static readonly Random _rand = new Random();
+        public void Mutate()
+        {
+            _genes[_rand.Next(100)] = new Gene(new LineGene());
+        }
     }
 
     public class HasIdBase
