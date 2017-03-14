@@ -12,11 +12,15 @@ using GeneticSharp.Domain.Populations;
 using GeneticSharp.Domain.Terminations;
 using Model;
 using System.Drawing;
+using System.Threading;
 
 namespace TestRun
 {
     class Program
     {
+        private static GeneticAlgorithm _ga;
+        private const int GenerationLimit = 2000;
+
         static void Main(string[] args)
         {
             var selection = new EliteSelection();
@@ -26,19 +30,28 @@ namespace TestRun
             var chromosome = new DrawingChromosome(200);
             var population = new Population(50, 60, chromosome);
 
-            var ga = new GeneticAlgorithm(population, fitness, selection, crossover, mutation);
-            ga.Termination = new GenerationNumberTermination(2200);
+            _ga = new GeneticAlgorithm(population, fitness, selection, crossover, mutation);
+            _ga.Termination = new GenerationNumberTermination(GenerationLimit);
 
+            _ga.GenerationRan += OnGenerationComplete;
+
+            var t = new Thread(() => _ga.Start());
+            t.Start();
             Console.WriteLine("GA running...");
-            ga.Start();
 
-            Console.WriteLine("Best solution found has {0} fitness.", ga.BestChromosome.Fitness);
+            t.Join();
 
-            var best = (DrawingChromosome)ga.BestChromosome;
+            Console.WriteLine("Best solution found has {0} fitness.", _ga.BestChromosome.Fitness);
+
+            var best = (DrawingChromosome)_ga.BestChromosome;
             var bitmap = GenBitmap(best);
             bitmap.Save(@"d:\out3.png");
         }
 
+        private static void OnGenerationComplete(object sender, EventArgs e)
+        {
+            Console.WriteLine("Generation complete. Current generation: {0} ({1}%). Best fitness: {2}", _ga.GenerationsNumber, 100 * _ga.GenerationsNumber / GenerationLimit, _ga.BestChromosome.Fitness);
+        }
 
         static Bitmap GenBitmap(DrawingChromosome c)
         {
