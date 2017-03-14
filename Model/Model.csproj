@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GeneticSharp.Domain">
+      <HintPath>C:\Users\steve\Documents\GitHub\GeneticSharp\src\GeneticSharp.Domain\bin\Debug\GeneticSharp.Domain.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -42,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms.cs" />
+    <Compile Include="DrawingChromosome.cs" />
     <Compile Include="LineGene.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
