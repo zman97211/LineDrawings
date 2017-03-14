@@ -13,12 +13,34 @@ namespace Model
 
         static Random _rand = new Random();
 
+        private double Clamp(double a, double min, double max)
+        {
+            if (a < min)
+                return min;
+            if (a > max)
+                return max;
+            return a;
+        }
+
         public LineGene()
         {
-            x1 = (byte)_rand.Next(255);
-            y1 = (byte)_rand.Next(255);
-            x2 = (byte)_rand.Next(255);
-            y2 = (byte)_rand.Next(255);
+            var length = (_rand.NextDouble() * 0.5 + 0.2) * 256;
+            var cx = _rand.NextDouble() * 256;
+            var cy = _rand.NextDouble() * 256;
+            var degrees = _rand.NextDouble() * 360;
+            var radians = 2 * Math.PI * degrees / 360;
+            var wOver2 = length * Math.Cos(radians) / 2;
+            var hOver2 = length * Math.Sin(radians) / 2;
+
+            var ix1 = Clamp(cx - wOver2, 0, 256);
+            var iy1 = Clamp(cy - hOver2, 0, 256);
+            var ix2 = Clamp(cx + wOver2, 0, 256);
+            var iy2 = Clamp(cy + hOver2, 0, 256);
+
+            x1 = (byte)ix1;
+            y1 = (byte)iy1;
+            x2 = (byte)ix2;
+            y2 = (byte)iy2;
         }
     }
 

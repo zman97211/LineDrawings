@@ -27,7 +27,7 @@ namespace TestRun
             var population = new Population(50, 60, chromosome);
 
             var ga = new GeneticAlgorithm(population, fitness, selection, crossover, mutation);
-            ga.Termination = new GenerationNumberTermination(2000);
+            ga.Termination = new GenerationNumberTermination(2200);
 
             Console.WriteLine("GA running...");
             ga.Start();
@@ -42,6 +42,7 @@ namespace TestRun
 
         static Bitmap GenBitmap(DrawingChromosome c)
         {
+            // REVISIT: This is a crappy way of doing this.
             var bitmap = new Bitmap(256, 256);
             var graphics = Graphics.FromImage(bitmap);
             graphics.FillRectangle(Brushes.White, 0, 0, 255, 255);
