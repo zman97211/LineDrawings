@@ -13,5 +13,11 @@ namespace LineDrawingsGui
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            var vm = new MainWindowViewModel();
+            var win = new MainWindow {DataContext = vm};
+            win.Show();
+        }
     }
 }

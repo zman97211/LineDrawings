@@ -7,6 +7,52 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Vertical">
+
+            <StackPanel Orientation="Horizontal">
+                <Label>Input filename:</Label>
+                <TextBox Text="{Binding InputFilename}" Width="100"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label>Output filename:</Label>
+                <TextBox Text="{Binding OutputFilename}" Width="100"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label>Number of generations:</Label>
+                <TextBox Text="{Binding NumberOfGenerations}" Width="100"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label>Number of lines:</Label>
+                <TextBox Text="{Binding NumberOfLines}" Width="100"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label>Mutation probability:</Label>
+                <TextBox Text="{Binding MutationProbability}" Width="100"/>
+            </StackPanel>
+            
+            <Button Command="{Binding StartCommand}">Start</Button>
+
+            <StackPanel Orientation="Horizontal">
+                <Label>Current generation:</Label>
+                <Label Content="{Binding CurrentGeneration}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label>Progress:</Label>
+                <Label Content="{Binding Progress}"/>
+            </StackPanel>
+
+        </StackPanel>
         
+        <Image Grid.Row="1" Source="{Binding BestChromosome}"/>
     </Grid>
 </Window>
