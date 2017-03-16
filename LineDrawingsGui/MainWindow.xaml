@@ -30,8 +30,8 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
-                <Label>Number of lines:</Label>
-                <TextBox Text="{Binding NumberOfLines}" Width="100"/>
+                <Label>Number of genes:</Label>
+                <TextBox Text="{Binding NumberOfGenes}" Width="100"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">

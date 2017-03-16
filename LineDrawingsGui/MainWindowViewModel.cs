@@ -22,7 +22,7 @@ namespace LineDrawingsGui
         private string _inputFilename = @"d:\pic.jpg";
         private string _outputFilename = @"d:\out.png";
         private int _numberOfGenerations = 2000;
-        private int _numberOfLines = 100;
+        private int _numberOfGenes = 100;
         private float _mutationProbability = 0.1f;
         private int _currentGeneration;
         private double _progress;
@@ -45,10 +45,10 @@ namespace LineDrawingsGui
             set { _numberOfGenerations = value; OnPropertyChanged(); }
         }
 
-        public int NumberOfLines
+        public int NumberOfGenes
         {
-            get { return _numberOfLines; }
-            set { _numberOfLines = value; OnPropertyChanged(); }
+            get { return _numberOfGenes; }
+            set { _numberOfGenes = value; OnPropertyChanged(); }
         }
 
         public float MutationProbability
@@ -96,7 +96,7 @@ namespace LineDrawingsGui
             var crossover = new OnePointCrossover();
             var mutation = new DrawingMutation();
             var fitness = new DrawingTarget(InputFilename);
-            var chromosome = new DrawingChromosome(NumberOfLines);
+            var chromosome = new DrawingChromosome(NumberOfGenes);
             var population = new Population(50, 60, chromosome);
 
             _ga = new GeneticAlgorithm(population, fitness, selection, crossover, mutation);
@@ -112,8 +112,7 @@ namespace LineDrawingsGui
 
         private void OnTerminationReached(object sender, EventArgs eventArgs)
         {
-            var bitmap = GenBitmap((DrawingChromosome)_ga.BestChromosome);
-            bitmap.Save(OutputFilename);
+            throw new NotImplementedException();
         }
         
         private void OnGenerationComplete(object sender, EventArgs e)
@@ -128,33 +127,7 @@ namespace LineDrawingsGui
 
         private void SetBestChromosome(DrawingChromosome c)
         {
-            var bitmap = GenBitmap(c);
-
-            using (var memory = new MemoryStream())
-            {
-                bitmap.Save(memory, ImageFormat.Png);
-                memory.Position = 0;
-                BitmapImage bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = memory;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                BestChromosome = bitmapImage;
-            }
-        }
-
-        private static Bitmap GenBitmap(DrawingChromosome c)
-        {
-            // REVISIT: This is a crappy way of doing this.
-            var bitmap = new Bitmap(256, 256);
-            var graphics = Graphics.FromImage(bitmap);
-            graphics.FillRectangle(Brushes.White, 0, 0, 255, 255);
-            var ph = c.GetPhenotype();
-            for (var y = 0; y < 256; ++y)
-            for (var x = 0; x < 256; ++x)
-                if (ph[x, y] < 128)
-                    graphics.DrawLine(Pens.Black, x, y, x + 1, y + 1);
-            return bitmap;
+            throw new NotImplementedException();
         }
 
         private void BrowseInputFile()

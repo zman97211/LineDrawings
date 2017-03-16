@@ -34,6 +34,8 @@ namespace Model
     {
         private readonly List<Gene> _genes;
 
+        public static int NewChromosomeLength { get; set; } = 100;
+
         public DrawingChromosome(int length)
         {
             _genes = new List<Gene>(length);
@@ -86,7 +88,7 @@ namespace Model
 
         public IChromosome CreateNew()
         {
-            return new DrawingChromosome(100);
+            return new DrawingChromosome(NewChromosomeLength);
         }
 
         public IChromosome Clone()
@@ -109,7 +111,7 @@ namespace Model
         private static readonly Random _rand = new Random();
         public void Mutate()
         {
-            _genes[_rand.Next(100)] = new Gene(new CircleGene());
+            _genes[_rand.Next(_genes.Count)] = new Gene(new CircleGene());
         }
     }
 

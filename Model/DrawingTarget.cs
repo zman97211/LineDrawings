@@ -7,20 +7,15 @@ namespace Model
 {
     public class DrawingTarget : IFitness
     {
-        public DrawingTarget(string imageFilename)
+        public DrawingTarget(string filename)
         {
-            throw new NotImplementedException();
-            var target = new Bitmap(imageFilename);
+            throw new NotFiniteNumberException();
         }
 
-        private double CalcFitness(DrawingChromosome c)
+        public double Evaluate(IChromosome c)
         {
+            var chromosome = (DrawingChromosome) c;
             throw new NotImplementedException();
-        }
-
-        public double Evaluate(IChromosome chromosome)
-        {
-            return CalcFitness((DrawingChromosome)chromosome);
         }
     }
 }

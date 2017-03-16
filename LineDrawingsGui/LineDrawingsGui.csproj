@@ -35,7 +35,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GeneticSharp.Domain">
+    <Reference Include="GeneticSharp.Domain, Version=1.0.6281.36964, Culture=neutral, PublicKeyToken=d63d2a65268366c6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Users\steve\Documents\GitHub\GeneticSharp\src\GeneticSharp.Domain\bin\Debug\GeneticSharp.Domain.dll</HintPath>
     </Reference>
     <Reference Include="System" />
