@@ -4,43 +4,29 @@ using GeneticSharp.Domain.Chromosomes;
 
 namespace Model
 {
-    public class LineGene
+    public class CircleGene
     {
-        public byte x1 { get; set; }
-        public byte y1 { get; set; }
-        public byte x2 { get; set; }
-        public byte y2 { get; set; }
-
-        static Random _rand = new Random();
-
-        private double Clamp(double a, double min, double max)
+        private static Random _rand = new Random();
+        public enum Colors
         {
-            if (a < min)
-                return min;
-            if (a > max)
-                return max;
-            return a;
+            Red, Green, Blue
         }
 
-        public LineGene()
+        public class Point
         {
-            var length = (_rand.NextDouble() * 0.5 + 0.2) * 256;
-            var cx = _rand.NextDouble() * 256;
-            var cy = _rand.NextDouble() * 256;
-            var degrees = _rand.NextDouble() * 360;
-            var radians = 2 * Math.PI * degrees / 360;
-            var wOver2 = length * Math.Cos(radians) / 2;
-            var hOver2 = length * Math.Sin(radians) / 2;
+            public double X { get; set; } = _rand.NextDouble();
+            public double Y { get; set; } = _rand.NextDouble();
+        }
 
-            var ix1 = Clamp(cx - wOver2, 0, 256);
-            var iy1 = Clamp(cy - hOver2, 0, 256);
-            var ix2 = Clamp(cx + wOver2, 0, 256);
-            var iy2 = Clamp(cy + hOver2, 0, 256);
+        public Point Center { get; set; } = new Point();
 
-            x1 = (byte)ix1;
-            y1 = (byte)iy1;
-            x2 = (byte)ix2;
-            y2 = (byte)iy2;
+        public double Radius { get; set; } = _rand.NextDouble();
+        public Colors Color { get; set; }
+
+        public CircleGene()
+        {
+            var colorValues = Enum.GetValues(typeof(Colors));
+            Color = (Colors)colorValues.GetValue(_rand.Next(colorValues.Length));
         }
     }
 
@@ -52,7 +38,7 @@ namespace Model
         {
             _genes = new List<Gene>(length);
             for (var i = 0; i < length; ++i)
-                _genes.Add(new Gene(new LineGene()));
+                _genes.Add(new Gene(new CircleGene()));
         }
 
         public int CompareTo(IChromosome other)
@@ -62,7 +48,7 @@ namespace Model
 
         public Gene GenerateGene(int geneIndex)
         {
-            return new Gene(new LineGene());
+            return new Gene(new CircleGene());
         }
 
         public void ReplaceGene(int index, Gene gene)
@@ -84,7 +70,7 @@ namespace Model
             {
                 var nToAdd = newLength - _genes.Count;
                 for (int i = 0; i < nToAdd; ++i)
-                    _genes.Add(new Gene(new LineGene()));
+                    _genes.Add(new Gene(new CircleGene()));
             }
         }
 
@@ -112,28 +98,18 @@ namespace Model
 
         public int Length => _genes.Count;
 
-        public byte[,] GetPhenotype()
+        public IEnumerable<CircleGene> GetCircleGenes()
         {
-            var phenotype = new byte[256, 256];
-            for (var y = 0; y < 256; ++y)
-                for (var x = 0; x < 256; ++x)
-                    phenotype[x, y] = 255;
-            foreach (var lineGene in _genes)
-            {
-                var line = (LineGene) lineGene.Value;
-                Algorithms.Line(line.x1, line.y1, line.x2, line.y2, (x, y) =>
-                {
-                    phenotype[x, y] = 0;
-                    return true;
-                });
-            }
-            return phenotype;
+            var circleGenes = new List<CircleGene>();
+            foreach (var genericGene in _genes)
+                circleGenes.Add((CircleGene)genericGene.Value);
+            return circleGenes;
         }
 
         private static readonly Random _rand = new Random();
         public void Mutate()
         {
-            _genes[_rand.Next(100)] = new Gene(new LineGene());
+            _genes[_rand.Next(100)] = new Gene(new CircleGene());
         }
     }
 

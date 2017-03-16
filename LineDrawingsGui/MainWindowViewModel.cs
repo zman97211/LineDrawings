@@ -95,7 +95,7 @@ namespace LineDrawingsGui
             var selection = new EliteSelection();
             var crossover = new OnePointCrossover();
             var mutation = new DrawingMutation();
-            var fitness = new LineDrawingTarget(InputFilename);
+            var fitness = new DrawingTarget(InputFilename);
             var chromosome = new DrawingChromosome(NumberOfLines);
             var population = new Population(50, 60, chromosome);
 
