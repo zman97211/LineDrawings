@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Threading;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using GeneticSharp.Domain;
@@ -114,11 +115,15 @@ namespace LineDrawingsGui
             var bitmap = GenBitmap((DrawingChromosome)_ga.BestChromosome);
             bitmap.Save(OutputFilename);
         }
-
+        
         private void OnGenerationComplete(object sender, EventArgs e)
         {
             CurrentGeneration = _ga.GenerationsNumber;
             Progress = (double)CurrentGeneration / NumberOfGenerations;
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
+            {
+                SetBestChromosome((DrawingChromosome)_ga.BestChromosome);
+            }));
         }
 
         private void SetBestChromosome(DrawingChromosome c)
