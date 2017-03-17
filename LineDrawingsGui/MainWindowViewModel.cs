@@ -92,6 +92,8 @@ namespace LineDrawingsGui
 
         private void StartGa()
         {
+            DrawingChromosome.NewChromosomeLength = NumberOfGenes;
+
             var selection = new EliteSelection();
             var crossover = new OnePointCrossover();
             var mutation = new DrawingMutation();
