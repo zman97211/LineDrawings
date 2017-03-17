@@ -23,7 +23,7 @@ namespace Model
             return Score(pheno);
         }
 
-        private double Score(Bitmap pheno)
+        private double Score(FastImage pheno)
         {
             double totalError = 0;
             for (int y = 0; y < pheno.Height; ++y)

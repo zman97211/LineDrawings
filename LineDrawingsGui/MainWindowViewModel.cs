@@ -110,6 +110,7 @@ namespace LineDrawingsGui
 
             _gaThread = new Thread(() => _ga.Start());
             _gaThread.Start();
+            TimeStarted = DateTime.Now;
         }
 
         private void OnTerminationReached(object sender, EventArgs eventArgs)
@@ -125,12 +126,41 @@ namespace LineDrawingsGui
             {
                 SetBestChromosome((DrawingChromosome)_ga.BestChromosome);
             }));
+            UpdateTimeStats();
+        }
+
+        public DateTime TimeStarted
+        {
+            get { return _timeStarted; }
+            private set { _timeStarted = value; OnPropertyChanged(); }
+        }
+
+        public TimeSpan TimeElapsed
+        {
+            get { return _timeElapsed; }
+            private set { _timeElapsed = value; OnPropertyChanged(); }
+        }
+
+        public TimeSpan AverageGenerationTime
+        {
+            get { return _averageGenerationTime; }
+           private set { _averageGenerationTime = value; OnPropertyChanged(); }
+        }
+
+        private void UpdateTimeStats()
+        {
+            TimeElapsed = DateTime.Now - TimeStarted;
+            AverageGenerationTime = new TimeSpan(0, 0, 0, 0, CurrentGeneration == 0 ? 0 : (int)((float)TimeElapsed.TotalMilliseconds / CurrentGeneration));
         }
 
         private DrawingRenderer _drawingRenderer = new DrawingRenderer();
+        private DateTime _timeStarted;
+        private TimeSpan _timeElapsed;
+        private TimeSpan _averageGenerationTime;
+
         private void SetBestChromosome(DrawingChromosome c)
         {
-            Bitmap bitmap = _drawingRenderer.GenBitmap(c, 200, 200);
+            var bitmap = _drawingRenderer.GenBitmap(c, 200, 200);
             using (var memory = new MemoryStream())
             {
                 bitmap.Save(memory, ImageFormat.Png);

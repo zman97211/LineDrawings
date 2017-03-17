@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
+using System.IO;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Model
 {
@@ -13,29 +9,30 @@ namespace Model
     {
         private const int BytesPerPixel = 4;
         private readonly byte[] _buffer;
-        private readonly int _width;
-        private readonly int _height;
-        private const int ExtraSpace = 0;// 1024 * 1024 * 256;
+        private const int ExtraSpace = 0;
+
+        public int Width { get; set; }
+        public int Height { get; set; }
 
         public FastImage(int width, int height)
         {
-            _width = width;
-            _height = height;
-            _buffer = new byte[_width * _height * BytesPerPixel + ExtraSpace];
+            Width = width;
+            Height = height;
+            _buffer = new byte[Width * Height * BytesPerPixel];
         }
 
         public FastImage(Bitmap from)
         {
-            _width = from.Width;
-            _height = from.Height;
-            _buffer = new byte[_width * _height * BytesPerPixel + ExtraSpace];
+            Width = from.Width;
+            Height = from.Height;
+            _buffer = new byte[Width * Height * BytesPerPixel];
             GCHandle handle = GCHandle.Alloc(_buffer);
             try
             {
                 var address = Marshal.UnsafeAddrOfPinnedArrayElement(_buffer, 0);
-                var stride = BytesPerPixel * _width;
+                var stride = BytesPerPixel * Width;
                 var pixelFormat = PixelFormat.Format32bppArgb;
-                using (var fastBitmap = new Bitmap(_width, _height, stride, pixelFormat, address))
+                using (var fastBitmap = new Bitmap(Width, Height, stride, pixelFormat, address))
                 {
                     using (var fastBitmapGraphics = Graphics.FromImage(fastBitmap))
                         fastBitmapGraphics.DrawImageUnscaled(from, 0, 0);
@@ -68,11 +65,30 @@ namespace Model
             try
             {
                 var address = Marshal.UnsafeAddrOfPinnedArrayElement(_buffer, 0);
-                var stride = BytesPerPixel * _width;
+                var stride = BytesPerPixel * Width;
                 var pixelFormat = PixelFormat.Format32bppArgb;
-                using (var fastBitmap = new Bitmap(_width, _height, stride, pixelFormat, address))
+                using (var fastBitmap = new Bitmap(Width, Height, stride, pixelFormat, address))
                 {
                     fastBitmap.Save(filename);
+                }
+            }
+            finally
+            {
+                handle.Free();
+            }
+        }
+
+        public void Save(MemoryStream stream, ImageFormat format)
+        {
+            GCHandle handle = GCHandle.Alloc(_buffer);
+            try
+            {
+                var address = Marshal.UnsafeAddrOfPinnedArrayElement(_buffer, 0);
+                var stride = BytesPerPixel * Width;
+                var pixelFormat = PixelFormat.Format32bppArgb;
+                using (var fastBitmap = new Bitmap(Width, Height, stride, pixelFormat, address))
+                {
+                    fastBitmap.Save(stream, format);
                 }
             }
             finally

@@ -14,7 +14,7 @@ namespace Model
         {
         }
 
-        public Bitmap GenBitmap(DrawingChromosome c, int width, int height)
+        public FastImage GenBitmap(DrawingChromosome c, int width, int height)
         {
             var bitmap = new Bitmap(width, height);
             var graphics = Graphics.FromImage(bitmap);
@@ -39,7 +39,7 @@ namespace Model
                 }
                 graphics.FillEllipse(brush, (float)(gene.Center.X - gene.Radius) * width, (float)(gene.Center.Y - gene.Radius) * height, (float)(gene.Radius * 2) * MaxCircleSize, (float)(gene.Radius * 2) * MaxCircleSize);
             }
-            return bitmap;
+            return new FastImage(bitmap);
         }
     }
 }

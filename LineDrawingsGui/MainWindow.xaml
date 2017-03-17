@@ -51,6 +51,21 @@
                 <Label Content="{Binding Progress}"/>
             </StackPanel>
 
+            <StackPanel Orientation="Horizontal">
+                <Label>Time started:</Label>
+                <Label Content="{Binding TimeStarted}"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal">
+                <Label>Time elapsed:</Label>
+                <Label Content="{Binding TimeElapsed}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
+                <Label>Average generation time:</Label>
+                <Label Content="{Binding AverageGenerationTime}"/>
+            </StackPanel>
+
         </StackPanel>
         
         <Image Grid.Row="1" Source="{Binding BestChromosome}"/>
