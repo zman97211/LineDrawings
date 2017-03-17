@@ -112,7 +112,7 @@ namespace LineDrawingsGui
 
         private void OnTerminationReached(object sender, EventArgs eventArgs)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("Done");
         }
         
         private void OnGenerationComplete(object sender, EventArgs e)
@@ -125,9 +125,21 @@ namespace LineDrawingsGui
             }));
         }
 
+        private DrawingRenderer _drawingRenderer = new DrawingRenderer();
         private void SetBestChromosome(DrawingChromosome c)
         {
-            throw new NotImplementedException();
+            Bitmap bitmap = _drawingRenderer.GenBitmap(c, 200, 200);
+            using (var memory = new MemoryStream())
+            {
+                bitmap.Save(memory, ImageFormat.Png);
+                memory.Position = 0;
+                BitmapImage bitmapImage = new BitmapImage();
+                bitmapImage.BeginInit();
+                bitmapImage.StreamSource = memory;
+                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                bitmapImage.EndInit();
+                BestChromosome = bitmapImage;
+            }
         }
 
         private void BrowseInputFile()

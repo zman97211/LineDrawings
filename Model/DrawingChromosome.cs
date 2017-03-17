@@ -34,7 +34,7 @@ namespace Model
     {
         private readonly List<Gene> _genes;
 
-        public static int NewChromosomeLength { get; set; } = 100;
+        public static int NewChromosomeLength { get; set; } = 20;
 
         public DrawingChromosome(int length)
         {
