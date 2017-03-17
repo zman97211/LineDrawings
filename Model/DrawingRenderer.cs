@@ -5,7 +5,6 @@ namespace Model
 {
     public class DrawingRenderer
     {
-        private const int MaxCircleSize = 40;
         private readonly Brush RedBrush = new SolidBrush(Color.FromArgb(128, 255, 0, 0));
         private readonly Brush GreenBrush = new SolidBrush(Color.FromArgb(128, 0, 255, 0));
         private readonly Brush BlueBrush = new SolidBrush(Color.FromArgb(128, 0, 0, 255));
@@ -18,7 +17,7 @@ namespace Model
         {
             var bitmap = new Bitmap(width, height);
             var graphics = Graphics.FromImage(bitmap);
-            graphics.FillRectangle(Brushes.White, 0, 0, 255, 255);
+            graphics.FillRectangle(Brushes.White, 0, 0, width, height);
             var genes = c.GetCircleGenes();
             foreach (var gene in genes)
             {
@@ -37,6 +36,7 @@ namespace Model
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+                float MaxCircleSize = (width + height) / 12;
                 graphics.FillEllipse(brush, (float)(gene.Center.X - gene.Radius) * width, (float)(gene.Center.Y - gene.Radius) * height, (float)(gene.Radius * 2) * MaxCircleSize, (float)(gene.Radius * 2) * MaxCircleSize);
             }
             return new FastImage(bitmap);

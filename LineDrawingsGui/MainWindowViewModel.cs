@@ -21,9 +21,9 @@ namespace LineDrawingsGui
     {
         private string _inputFilename = @"d:\pic.jpg";
         private string _outputFilename = @"d:\out.png";
-        private int _numberOfGenerations = 2000;
-        private int _numberOfGenes = 100;
-        private float _mutationProbability = 0.1f;
+        private int _numberOfGenerations = 180000;
+        private int _numberOfGenes = 250;
+        private float _mutationProbability = 0.15f;
         private int _currentGeneration;
         private double _progress;
 
@@ -125,6 +125,7 @@ namespace LineDrawingsGui
             Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action(() =>
             {
                 SetBestChromosome((DrawingChromosome)_ga.BestChromosome);
+                _drawingRenderer.GenBitmap((DrawingChromosome)_ga.BestChromosome, 1024, 1024).Save($@"d:\balloon\{CurrentGeneration}.png");
             }));
             UpdateTimeStats();
         }
