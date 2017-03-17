@@ -37,7 +37,7 @@ namespace Model
                         throw new ArgumentOutOfRangeException();
                 }
                 float MaxCircleSize = (width + height) / 12;
-                graphics.FillEllipse(brush, (float)(gene.Center.X - gene.Radius) * width, (float)(gene.Center.Y - gene.Radius) * height, (float)(gene.Radius * 2) * MaxCircleSize, (float)(gene.Radius * 2) * MaxCircleSize);
+                graphics.FillEllipse(brush, (float)(gene.Center.X * width), (float)(gene.Center.Y * height), (float)(gene.Radius * 2) * MaxCircleSize, (float)(gene.Radius * 2) * MaxCircleSize);
             }
             return new FastImage(bitmap);
         }
