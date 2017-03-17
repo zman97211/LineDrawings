@@ -57,6 +57,11 @@
             </StackPanel>
             
             <StackPanel Orientation="Horizontal">
+                <Label>Time to completion:</Label>
+                <Label Content="{Binding TimeToCompletion}"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal">
                 <Label>Time elapsed:</Label>
                 <Label Content="{Binding TimeElapsed}"/>
             </StackPanel>

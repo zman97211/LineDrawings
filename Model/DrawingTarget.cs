@@ -31,10 +31,11 @@ namespace Model
                 {
                     var a = _targetBitmap.GetPixel(x, y);
                     var b = pheno.GetPixel(x, y);
-                    var rError = (int)a.R - (int)b.R;
-                    var gError = (int)a.G - (int)b.G;
-                    var bError = (int)a.B - (int)b.B;
-                    totalError += (Math.Abs(rError / 255f) + Math.Abs(gError / 255f) + Math.Abs(bError / 255f)) / 3;
+                    var rError = (float)a.R - b.R;
+                    var gError = (float)a.G - b.G;
+                    var bError = (float)a.B - b.B;
+                    var result = Math.Pow(rError * rError + gError * gError + bError * bError, (1f / 3));
+                    totalError += result;
                 }
 
             return 1 - (totalError / (pheno.Height * pheno.Width));

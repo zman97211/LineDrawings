@@ -148,16 +148,25 @@ namespace LineDrawingsGui
            private set { _averageGenerationTime = value; OnPropertyChanged(); }
         }
 
+        public string TimeToCompletion
+        {
+            get { return _timeToCompletion; }
+            set { _timeToCompletion = value; OnPropertyChanged(); }
+        }
+
         private void UpdateTimeStats()
         {
             TimeElapsed = DateTime.Now - TimeStarted;
             AverageGenerationTime = new TimeSpan(0, 0, 0, 0, CurrentGeneration == 0 ? 0 : (int)((float)TimeElapsed.TotalMilliseconds / CurrentGeneration));
+            var msToCompletion = AverageGenerationTime.TotalMilliseconds * (NumberOfGenerations - CurrentGeneration);
+            TimeToCompletion = TimeSpan.FromMilliseconds(msToCompletion).ToString();
         }
 
         private DrawingRenderer _drawingRenderer = new DrawingRenderer();
         private DateTime _timeStarted;
         private TimeSpan _timeElapsed;
         private TimeSpan _averageGenerationTime;
+        private string _timeToCompletion;
 
         private void SetBestChromosome(DrawingChromosome c)
         {
