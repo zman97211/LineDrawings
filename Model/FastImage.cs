@@ -1,10 +1,15 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace FastImageTest
+namespace Model
 {
-    class FastImage
+    public class FastImage
     {
         private const int BytesPerPixel = 4;
         private readonly byte[] _buffer;
@@ -74,23 +79,6 @@ namespace FastImageTest
             {
                 handle.Free();
             }
-        }
-    }
-    
-    class Program
-    {
-        private static Bitmap TestBitmap = new Bitmap(@"d:\pic.jpg");
-
-        static void Main(string[] args)
-        {
-
-            var original = new Bitmap(@"d:\pic.jpg");
-            var fast = new FastImage(original);
-            var fresh = new FastImage(original.Width, original.Height);
-            for (var y = 0; y < original.Height; ++y)
-                for (var x = 0; x < original.Width; ++x)
-                    fresh.SetPixel(x, y, fast.GetPixel(x, y));
-            fresh.Save(@"d:\pic_copy.jpg");
         }
     }
 }
